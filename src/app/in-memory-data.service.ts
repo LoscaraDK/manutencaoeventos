@@ -8,9 +8,52 @@ import { Evento } from './evento';
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const eventos = [
-      { id: 1, name: 'juros' },
-      { id: 2, name: 'amortizacao' },
-      { id: 3, name: 'vencimento' },
+      { id: 1, 
+        dataEfetivacao: new Date(Date.UTC(2020,2,9,3,0,0)).toLocaleDateString('pt-BR'), 
+        dataOriginal: new Date(Date.UTC(2020,2,9,3,0,0)).toLocaleDateString('pt-BR'), 
+        dataLiquidacao: new Date(Date.UTC(2020,2,9,3,0,0)).toLocaleDateString('pt-BR'),
+        tipoIf: 'CDB',
+        codigoIf: 'CDB120014M7',
+        evento: 'JUROS',
+        incorporaJuros: false,
+        taxa: 0,
+        pu: 0,
+        puJurosSobreAmortizacao: 0,
+        valorResidualUnitario: 0,
+        registradorOuEmissor: 'MAXIMABC',
+        agentePagamento: 'MAXIMABC'
+      },
+      { id: 2, 
+        dataEfetivacao: new Date(Date.UTC(2020,2,9,3,0,0)).toLocaleDateString('pt-BR'), 
+        dataOriginal: new Date(Date.UTC(2020,2,9,3,0,0)).toLocaleDateString('pt-BR'), 
+        dataLiquidacao: new Date(Date.UTC(2020,2,9,3,0,0)).toLocaleDateString('pt-BR'),
+        tipoIf: 'CDB',
+        codigoIf: 'CDB120014M7',
+        evento: 'AMORTIZACAO',
+        incorporaJuros: false,
+        taxa: '10.0000',
+        pu: 0,
+        puJurosSobreAmortizacao: 0,
+        valorResidualUnitario: 0,
+        registradorOuEmissor: 'MAXIMABC',
+        agentePagamento: 'MAXIMABC'
+      },
+      { id: 3, 
+        dataEfetivacao: new Date(Date.UTC(2022,2,9,3,0,0)).toLocaleDateString('pt-BR'), 
+        dataOriginal: new Date(Date.UTC(2022,2,9,3,0,0)).toLocaleDateString('pt-BR'), 
+        dataLiquidacao: new Date(Date.UTC(2022,2,9,3,0,0)).toLocaleDateString('pt-BR'), 
+        tipoIf: 'CDB',
+        codigoIf: 'CDB120014M7',
+        evento: 'VENCIMENTO (RESGATE)',
+        incorporaJuros: false,
+        taxa: 0,
+        pu: 0,
+        puJurosSobreAmortizacao: 0,
+        valorResidualUnitario: 0,
+        registradorOuEmissor: 'MAXIMABC',
+        agentePagamento: 'MAXIMABC'
+      }
+      
     ];
     return {eventos};
   }

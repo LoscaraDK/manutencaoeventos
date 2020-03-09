@@ -1,14 +1,38 @@
-<table>
-    <thead>
+<div class="panel-default">
+<table class="table table-striped">
       <tr>
-        <th>ID</th>
-        <th>NAME</th>
+        <th>Id Evento</th>
+        <th>Data Efetivação</th>
+        <th>Data Original</th>
+        <th>Data Liquidação</th>
+        <th>Tipo IF</th>
+        <th>Código IF</th>
+        <th>Evento</th>
+        <th>Incorpora Juros</th>
+        <th>Taxa</th>
+        <th>P.U.</th>
+        <th>P.U. de Juros sobre Amort.</th>
+        <th>Valor Residual Unitário</th>
+        <th>Registrador/Emissor (Nome Simplificado)</th>
+        <th>Agente de Pagamento (Nome Simplificado)</th>
       </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let evento of eventos">
-        <td>{{evento.id}}</td>
-        <td>{{evento.name}}</td>
-      </tr>
-    </tbody>
+      <tbody>
+        <tr *ngFor="let evento of eventos" style="border-radius: 10px;">
+          <td>{{evento.id}}</td>
+          <td>{{evento.dataEfetivacao}}</td>
+          <td>{{evento.dataOriginal}}</td>
+          <td>{{evento.dataLiquidacao}}</td>
+          <td>{{evento.tipoIf}}</td>
+          <td>{{evento.codigoIf}}</td>
+          <td>{{evento.evento}}</td>
+          <td>{{evento.incorporaJuros}}</td>
+          <td>{{evento.taxa}}</td>
+          <td>{{evento.pu}}</td>
+          <td>{{evento.puJurosSobreAmortizacao}}</td>
+          <td>{{evento.valorResidualUnitario}}</td>
+          <td>{{evento.registradorOuEmissor}}</td>
+          <td>{{evento.agentePagamento}}</td>
+        </tr>
+      </tbody>
   </table>
+</div>

@@ -1,0 +1,4 @@
+git add <file name>
+git status
+git commit -m "mensagem de commit"
+git push
