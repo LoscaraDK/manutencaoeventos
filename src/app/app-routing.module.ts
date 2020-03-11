@@ -3,10 +3,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListaEventosComponent } from './lista-eventos/lista-eventos.component';
 
-const routes: Routes = [
-  { path: '', redirectTo: '/listaeventos', pathMatch: 'full' },
-  { path: 'listaeventos', component: ListaEventosComponent }
-];
+export const routes: Routes = [
+  { path: '', redirectTo: '/consulta-eventos', pathMatch: 'full' },
+  { path: 'consulta-eventos', component: ListaEventosComponent },
+  { path: 'edicao-eventos', component: ListaEventosComponent ,  data: {id: '1', modoEdicao: true} ,resolve: ListaEventosComponent}
+]; 
 
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],

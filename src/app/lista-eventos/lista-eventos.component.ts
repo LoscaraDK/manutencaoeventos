@@ -1,8 +1,8 @@
 import { Component, OnInit} from '@angular/core';
-
 import { ListaEventosService } from './lista-eventos.service';
 import { Evento } from '../evento';
-
+import {IAngularMyDpOptions, IMyDateModel} from 'angular-mydatepicker';
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-lista-eventos',
@@ -12,10 +12,16 @@ import { Evento } from '../evento';
 export class ListaEventosComponent implements OnInit {
   eventos: Evento[] = [];
   selecedEvento: Evento;
-
-  constructor(private eventosService: ListaEventosService) {}
+  modoEdicao: boolean = false;
+  
+  locale: string = 'pt-br';
+  myDpOptions: IAngularMyDpOptions = {dateRange: false,dateFormat: 'dd/mm/yyyy'};
+  
+  constructor(private eventosService: ListaEventosService,private route : ActivatedRoute) {}
 
   ngOnInit(): void {
+    console.log(this.route.snapshot.data.modoEdicao);
+    this.modoEdicao = this.route.snapshot.data.modoEdicao;
     this.getEventos();
   }
 

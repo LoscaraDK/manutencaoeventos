@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import {ListaEventosComponent} from './lista-eventos//lista-eventos.component';
+import { AngularMyDatePickerModule } from 'angular-mydatepicker';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {ListaEventosComponent} from './lista-eventos//lista-eventos.component';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    AngularMyDatePickerModule,
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.

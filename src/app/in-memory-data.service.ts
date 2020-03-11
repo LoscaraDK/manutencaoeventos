@@ -9,9 +9,24 @@ export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const eventos = [
       { id: 1, 
-        dataEfetivacao: new Date(Date.UTC(2020,2,9,3,0,0)).toLocaleDateString('pt-BR'), 
-        dataOriginal: new Date(Date.UTC(2020,2,9,3,0,0)).toLocaleDateString('pt-BR'), 
-        dataLiquidacao: new Date(Date.UTC(2020,2,9,3,0,0)).toLocaleDateString('pt-BR'),
+        dataEfetivacao: 
+        {singleDate: {date: { 
+          year: 2019, 
+          month: 5, 
+          day: 14 
+        }}}, 
+        dataOriginal: 
+        {singleDate: {date: { 
+          year: 2019, 
+          month: 5, 
+          day: 14 
+        }}}, 
+        dataLiquidacao: 
+        {singleDate: {date: { 
+          year: 2019, 
+          month: 5, 
+          day: 14 
+        }}},
         tipoIf: 'CDB',
         codigoIf: 'CDB120014M7',
         evento: 'JUROS',
@@ -24,13 +39,29 @@ export class InMemoryDataService implements InMemoryDbService {
         agentePagamento: 'MAXIMABC'
       },
       { id: 2, 
-        dataEfetivacao: new Date(Date.UTC(2020,2,9,3,0,0)).toLocaleDateString('pt-BR'), 
-        dataOriginal: new Date(Date.UTC(2020,2,9,3,0,0)).toLocaleDateString('pt-BR'), 
-        dataLiquidacao: new Date(Date.UTC(2020,2,9,3,0,0)).toLocaleDateString('pt-BR'),
+        dataEfetivacao: 
+        {singleDate: {date: { 
+          year: 2019, 
+          month: 5, 
+          day: 14 
+        }}}, 
+        dataOriginal: 
+        {singleDate: {date: { 
+          year: 2019, 
+          month: 5, 
+          day: 14 
+        }}}, 
+        dataLiquidacao: 
+        {singleDate: {date: { 
+          year: 2019, 
+          month: 5, 
+          day: 14 
+        }}}
+        ,
         tipoIf: 'CDB',
         codigoIf: 'CDB120014M7',
         evento: 'AMORTIZACAO',
-        incorporaJuros: false,
+        incorporaJuros: true,
         taxa: '10.0000',
         pu: 0,
         puJurosSobreAmortizacao: 0,
@@ -39,9 +70,25 @@ export class InMemoryDataService implements InMemoryDbService {
         agentePagamento: 'MAXIMABC'
       },
       { id: 3, 
-        dataEfetivacao: new Date(Date.UTC(2022,2,9,3,0,0)).toLocaleDateString('pt-BR'), 
-        dataOriginal: new Date(Date.UTC(2022,2,9,3,0,0)).toLocaleDateString('pt-BR'), 
-        dataLiquidacao: new Date(Date.UTC(2022,2,9,3,0,0)).toLocaleDateString('pt-BR'), 
+        dataEfetivacao: 
+        {singleDate: {date: { 
+          year: 2022, 
+          month: 5, 
+          day: 14 
+        }}}, 
+        dataOriginal: 
+        {singleDate: {date: { 
+          year: 2022, 
+          month: 5, 
+          day: 14 
+        }}}, 
+        dataLiquidacao: 
+        {singleDate: {date: { 
+          year: 2022, 
+          month: 5, 
+          day: 14 
+        }}}
+        , 
         tipoIf: 'CDB',
         codigoIf: 'CDB120014M7',
         evento: 'VENCIMENTO (RESGATE)',
