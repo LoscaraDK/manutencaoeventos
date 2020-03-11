@@ -5,8 +5,8 @@ import { ListaEventosComponent } from './lista-eventos/lista-eventos.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/consulta-eventos', pathMatch: 'full' },
-  { path: 'consulta-eventos', component: ListaEventosComponent },
-  { path: 'edicao-eventos', component: ListaEventosComponent ,  data: {id: '1', modoEdicao: true} ,resolve: ListaEventosComponent}
+  { path: 'consulta-eventos', component: ListaEventosComponent, data: {modoEdicao: false}},
+  { path: 'edicao-eventos', component: ListaEventosComponent ,  data: {modoEdicao: true}}
 ]; 
 
 @NgModule({
