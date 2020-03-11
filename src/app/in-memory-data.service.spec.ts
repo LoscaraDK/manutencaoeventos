@@ -7,7 +7,7 @@ describe('InMemoryDataService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(InMemoryDataService);
+    //service = TestBed.inject(InMemoryDataService);
   });
 
   it('should be created', () => {

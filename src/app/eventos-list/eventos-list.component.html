@@ -19,29 +19,24 @@
       <tr *ngFor="let evento of eventos">
           <td>{{evento.id}}</td>
           <td>
+              
             <p> 
-              {{evento.dataEfetivacao.singleDate.date.day}}/
-              {{evento.dataEfetivacao.singleDate.date.month}}/
-              {{evento.dataEfetivacao.singleDate.date.year}}
+              {{formatDateToString(evento.dataEfetivacao)}}
             </p>
           </td>
           <td>
             <p>
-              {{evento.dataOriginal.singleDate.date.day}}/
-              {{evento.dataOriginal.singleDate.date.month}}/
-              {{evento.dataOriginal.singleDate.date.year}}
+              {{formatDateToString(evento.dataOriginal)}}
             </p>
           </td>
           <td>
             <p>
-              {{evento.dataLiquidacao.singleDate.date.day}}/
-              {{evento.dataLiquidacao.singleDate.date.month}}/
-              {{evento.dataLiquidacao.singleDate.date.year}}
+              {{formatDateToString(evento.dataLiquidacao)}}
             </p>
           </td>
           <td>{{evento.tipoIf}}</td>
           <td>{{evento.codigoIf}}</td>
-          <td>{{evento.evento}}</td>
+          <td>{{evento.tipoEvento.descricao}}</td>
           <td>{{evento.incorporaJuros ? 'Sim' : 'Não' }}</td>
           <td>{{evento.taxa}}</td>
           <td>{{evento.pu}}</td>
@@ -52,7 +47,7 @@
         </tr>
   </table>
 </div>
-<div *ngIf="modoEdicao">
+<!--div *ngIf="modoEdicao">
   <table class="table-striped">
         <tr>
           <th>Id Evento</th>
@@ -69,10 +64,11 @@
           <th>Valor Residual Unitário</th>
           <th>Registrador/Emissor (Nome Simplificado)</th>
           <th>Agente de Pagamento (Nome Simplificado)</th>
+          <th></th>
        </tr>
         <tr *ngFor="let evento of eventos">
             <td>{{evento.id}}</td>
-            <td><!--input type="text" [(ngModel)]="evento.dataEfetivacao" -->
+            <td>
                <input angular-mydatepicker 
                     name="dataEfetivacao" 
                     [(ngModel)]="evento.dataEfetivacao" 
@@ -113,7 +109,9 @@
             <td><input type="text" [(ngModel)]="evento.valorResidualUnitario"></td>
             <td>{{evento.registradorOuEmissor}}</td>
             <td>{{evento.agentePagamento}}</td>
+            <td><button class="delete" title="delete evento"
+              (click)="delete(evento)">x</button></td>
           </tr>
     </table>
-  </div>
+  </div-->
   

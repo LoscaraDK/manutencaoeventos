@@ -1,32 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Evento } from '../evento';
+import { IEvento } from '../IEvento';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ListaEventosService {
+export class EventosListService {
   private eventosURL = 'api/eventos';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
   constructor(private http: HttpClient) {}
 
-  getEventos(): Observable<Evento[]> {
-    const eventos = this.http.get<Evento[]>(this.eventosURL).pipe(
+  getEventos(): Observable<IEvento[]> {
+    const eventos = this.http.get<IEvento[]>(this.eventosURL).pipe(
       tap(_ => this.log('fetched eventos')),
-      catchError(this.handleError<Evento[]>('getEventos', []))
+      catchError(this.handleError<IEvento[]>('getEventos', []))
     );
-
-   // eventos.forEach(evento => {
-    //  console.log(evento);
-    //});
-
     return eventos;
 
   }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
@@ -47,7 +43,7 @@ export class ListaEventosService {
     };
   }
 
-  /** Log a HeroService message with the MessageService */
+  /** Log a ListaEventoService message with the MessageService */
   private log(message: string) {
     console.log(message);
   }

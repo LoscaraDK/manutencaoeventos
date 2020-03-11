@@ -9,13 +9,15 @@ import { InMemoryDataService } from './in-memory-data.service';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import {ListaEventosComponent} from './lista-eventos//lista-eventos.component';
+import {EventosListComponent} from './eventos-list/eventos-list.component';
 import { AngularMyDatePickerModule } from 'angular-mydatepicker';
+import { EventosEditComponent } from './eventos-edit/eventos-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListaEventosComponent
+    EventosListComponent,
+    EventosEditComponent
   ],
   imports: [
     BrowserModule,
