@@ -1,69 +1,84 @@
-<div *ngIf="modoEdicao">
-  <table class="table-striped">
-    <tr>
-      <th>Id Evento</th>
-      <th>Data Efetivação</th>
-      <th>Data Original</th>
-      <th>Data Liquidação</th>
-      <th>Tipo IF</th>
-      <th>Código IF</th>
-      <th>Evento</th>
-      <th>Incorpora Juros</th>
-      <th>Taxa</th>
-      <th>P.U.</th>
-      <th>P.U. de Juros sobre Amort.</th>
-      <th>Valor Residual Unitário</th>
-      <th>Registrador/Emissor (Nome Simplificado)</th>
-      <th>Agente de Pagamento (Nome Simplificado)</th>
-      <th></th>
-    </tr>
-    <tr *ngFor="let evento of eventos">
-      <td>{{evento.id}}</td>
-      <td>
-        <input angular-mydatepicker name="dataEfetivacao" [(ngModel)]="evento.dataEfetivacao"
-          #dpefetivacao="angular-mydatepicker" [options]="myDpOptions" [locale]="locale"
-          (click)="dpefetivacao.openCalendar()" />
-      </td>
-      <td>
-        <input angular-mydatepicker name="dataOriginal" type="text" [(ngModel)]="evento.dataOriginal"
-          #dporiginal="angular-mydatepicker" (click)="dporiginal.openCalendar()" [options]="myDpOptions"
-          [locale]="locale" />
-      </td>
-      <td>
-        <input angular-mydatepicker name="dataLiquidacao" type="text" [(ngModel)]="evento.dataLiquidacao"
-          #dpliquidacao="angular-mydatepicker" (click)="dpliquidacao.openCalendar()" [options]="myDpOptions"
-          [locale]="locale" />
-      </td>
-      <td>{{evento.tipoIf}}</td>
-      <td>{{evento.codigoIf}}</td>
-      <td>
-        <div *ngIf="evento.tipoEvento.id == null">
-          <select  [(ngModel)]="evento.tipoEvento">
-            <option [value]="0" disabled>--Selecione um tipo--</option>
+<div class="table">
+  <div class="row  row-header">
+    <span class="cell td">Id Evento</span>
+    <span class="cell td">Data Efetivação</span>
+    <span class="cell td">Data Original</span>
+    <span class="cell td">Data Liquidação</span>
+    <span class="cell td">Tipo IF</span>
+    <span class="cell td">Código IF</span>
+    <span class="cell td">Evento</span>
+    <span class="cell td">Incorpora Juros</span>
+    <span class="cell td">Taxa</span>
+    <span class="cell td">P.U.</span>
+    <span class="cell td">P.U. de Juros sobre Amort.</span>
+    <span class="cell td">Valor Residual Unitário</span>
+    <span class="cell td">Registrador/Emissor (Nome Simplificado)</span>
+    <span class="cell td">Agente de Pagamento (Nome Simplificado)</span>
+    <span class="cell td"></span>
+  </div>
+  <div class="row span-resultado" *ngFor="let evento of eventos">
+    <span class="cell">{{evento.id}}</span>
+    <span class="cell">
+      <div class="datepickercontainer">
+        <div class="datepickerelement">
+      <input angular-mydatepicker name="dataEfetivacao" [(ngModel)]="evento.dataEfetivacao"
+        #dpefetivacao="angular-mydatepicker" [options]="myDpOptions" [locale]="locale"
+        (click)="dpefetivacao.openCalendar()" />
+      </div></div>
+    </span>
+    <span class="cell">
+      <div class="datepickercontainer">
+        <div class="datepickerelement">
+      <input angular-mydatepicker name="dataOriginal" type="text" [(ngModel)]="evento.dataOriginal"
+        #dporiginal="angular-mydatepicker" (click)="dporiginal.openCalendar()" [options]="myDpOptions"
+        [locale]="locale" />
+      </div></div>
+    </span>
+    <span class="cell">
+      <div class="datepickercontainer">
+        <div class="datepickerelement">
+      <input angular-mydatepicker name="dataLiquidacao" type="text" [(ngModel)]="evento.dataLiquidacao"
+        #dpliquidacao="angular-mydatepicker" (click)="dpliquidacao.openCalendar()" [options]="myDpOptions"
+        [locale]="locale" />
+      </div></div>
+    </span>
+    <span class="cell">{{evento.tipoIf}}</span>
+    <span class="cell">{{evento.codigoIf}}</span>
+    <span class="cell">
+      <!--div *ngIf="evento.tipoEvento.id == null">
+          <select  [(ngModel)]="evento.tipoEvento"> 
             <option *ngFor="let tipo of tiposEvento" 
-                    [value]="tipo.tipoEvento.id"  
-                    [selected]="evento.tipoEvento.id"
-                   >
+                    [ngValue]="tipo.tipoEvento"
+                    >
                     {{tipo.tipoEvento.descricao}}
             </option>
-          </select>        
-          
-        </div>
-        <div *ngIf="evento.tipoEvento.id != null">
-            {{evento.tipoEvento.descricao}}
-        </div>
-      </td>
-      <td><input type="checkbox" [(ngModel)]="evento.incorporaJuros"></td>
-      <td><input type="text" [(ngModel)]="evento.taxa"></td>
-      <td><input type="text" [(ngModel)]="evento.pu"></td>
-      <td><input type="text" [(ngModel)]="evento.puJurosSobreAmortizacao"></td>
-      <td><input type="text" [(ngModel)]="evento.valorResidualUnitario"></td>
-      <td>{{evento.registradorOuEmissor}}</td>
-      <td>{{evento.agentePagamento}}</td>
-      <td><button class="delete" title="delete evento" (click)="delete(evento)">x</button></td>
-    </tr>
-  </table>
-</div>
-<div style="max-width: 100%; background-color: green; text-align: center;">
-  <button title="add evento" (click)="add()">Add</button>
-</div>
+          </select>
+        </div-->
+      <div *ngIf="evento.tipoEvento.id == null">
+        <mat-form-field>
+          <mat-label>selecione</mat-label>
+          <mat-select [(ngModel)]="evento.tipoEvento" [formControl]="selectFormControl" required>
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let tipo of tiposEvento" [value]="tipo.tipoEvento">
+              {{tipo.tipoEvento.descricao}}
+            </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+      </div>
+      <div *ngIf="evento.tipoEvento.id != null">
+        {{evento.tipoEvento.descricao}}
+      </div>
+    </span>
+    <span class="cell"><input type="checkbox" [(ngModel)]="evento.incorporaJuros"></span>
+    <span class="cell"><input type="text" [(ngModel)]="evento.taxa"></span>
+    <span class="cell"><input type="text" [(ngModel)]="evento.pu"></span>
+    <span class="cell"><input type="text" [(ngModel)]="evento.puJurosSobreAmortizacao"></span>
+    <span class="cell"><input type="text" [(ngModel)]="evento.valorResidualUnitario"></span>
+    <span class="cell">{{evento.registradorOuEmissor}}</span>
+    <span class="cell">{{evento.agentePagamento}}</span>
+    <span class="cell"><button class="delete" title="delete evento" (click)="delete(evento)">x</button></span>
+  </div>
+  <div style="max-width: 100%; background-color: green; text-align: center;">
+    <button title="add evento" (click)="add()">Add</button>
+  </div>

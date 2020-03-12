@@ -1,40 +1,47 @@
-.painel-eventos{
-    background-color: green;
+.table{
+  display: table; 
+  padding: 2px;
+  margin: 2px;
+  border: solid 2px white;
+  
+}
+.row{
+  display: table-row; 
+  vertical-align: top;
+  padding-bottom: 10px;
+  border: solid 1px #00FF00;
+  border-left: 0px;
+  border-radius: 5px;
 }
 
-/* marca a primeira linha da tabela com a cor desejada*/
-.table-striped > tbody > tr:first-child > th{
+.row-header {
     background: #002c63 none repeat scroll 0 0;
-    border-radius: 5px;
-    padding: 0;
     color: white;
-    vertical-align: middle; 
-    text-align: center;
 }
 
-.table-striped td{
-    border-radius: 5px;
-    padding: 0;
-    vertical-align: middle; 
-    text-align: center;
-}
-
-.table-striped input{
-    max-width: 100% !important;
-    width: 100%;
-    height auto;
-    border-radius: 5px;
-}
-
-
-tr:nth-child(even) {
+.span-resultado:nth-child(even) {
     background: #d1eaff;
 }
-tr:nth-child(odd) {
+.span-resultado:nth-child(odd) {
     background: #96c5ec;
 }
 
-a:hover {
-    text-decoration: none;
-    color: white;
+
+.cell{
+  display: table-cell;
+  vertical-align: top;
+  padding-left: 1px;
+  width: 300px;
+  text-align: center;
+  margin: 1px;
+  border: solid 1px white;
+}
+.td {
+  width: 100px;
+  font-style:italic;
+}
+
+input {
+    width: 95%;
+    vertical-align: left;
 }

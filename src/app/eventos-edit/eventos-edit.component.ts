@@ -1,10 +1,11 @@
 import { Component, OnInit} from '@angular/core';
 
 import { IEvento, Evento } from '../IEvento';
-import {IAngularMyDpOptions, IMyDateModel, IMySingleDateModel} from 'angular-mydatepicker';
+import {IAngularMyDpOptions, IMyDateModel} from 'angular-mydatepicker';
 import { ActivatedRoute } from '@angular/router'
 import { EventosListService } from '../eventos-list/eventos-list.service';
 import { EventosEditService } from './eventos-edit.service';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-eventos-edit',
@@ -12,13 +13,30 @@ import { EventosEditService } from './eventos-edit.service';
   styleUrls: ['./eventos-edit.component.styl']
 })
 export class EventosEditComponent implements OnInit {
-
   eventos: IEvento[] = [];
   selecedEvento: IEvento;
   modoEdicao: boolean = false;
   
   locale: string = 'pt-br';
-  myDpOptions: IAngularMyDpOptions = {dateRange: false,dateFormat: 'dd/mm/yyyy'};
+  myDpOptions: IAngularMyDpOptions = {dateRange: false,
+                                      dateFormat: 'dd/mm/yyyy',
+                                      alignSelectorRight: false,
+                                      openSelectorTopOfInput: false,
+                                      inline: false,
+                                      stylesData: {
+                                        selector: 'dpefetivacao',
+                                        styles: `
+                                        .dpefetivacao .myDpIconLeftArrow,
+                                        .myDpIconRightArrow {
+                                                color: red;
+                                            },
+                                            .myDpSelectorAbsolute {
+                                              position: relative !important;
+                                            }  
+
+                                        `
+                                    } 
+                                    };
   
   tiposEvento = [{tipoEvento: {id:1,descricao:'JUROS'}}, {tipoEvento: {id:2,descricao:'AMORTIZACAO'}} , {tipoEvento: {id:3,descricao:'VENCIMENTO(RESGATE)'}}];
 
@@ -31,10 +49,13 @@ export class EventosEditComponent implements OnInit {
               private eventosEditService: EventosEditService,
               private route: ActivatedRoute) {}
 
+  selectFormControl: FormControl;            
   ngOnInit(): void {
     console.log(this.route.snapshot.data.modoEdicao);
     this.modoEdicao = this.route.snapshot.data.modoEdicao;
     this.getEventos();
+
+    this.selectFormControl = new FormControl('',[Validators.required]);
   }
 
   getEventos(): void {
