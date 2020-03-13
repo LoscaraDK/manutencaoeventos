@@ -1,4 +1,5 @@
 <div class="table">
+  <!-- Header -->
   <div class="row  row-header">
     <span class="cell td">Id Evento</span>
     <span class="cell td">Data Efetivação</span>
@@ -16,31 +17,36 @@
     <span class="cell td">Agente de Pagamento (Nome Simplificado)</span>
     <span class="cell td"></span>
   </div>
+
+  <!-- Corpo -->
   <div class="row span-resultado" *ngFor="let evento of eventos">
     <span class="cell">{{evento.id}}</span>
     <span class="cell">
       <div class="datepickercontainer">
         <div class="datepickerelement">
-      <input angular-mydatepicker name="dataEfetivacao" [(ngModel)]="evento.dataEfetivacao"
-        #dpefetivacao="angular-mydatepicker" [options]="myDpOptions" [locale]="locale"
-        (click)="dpefetivacao.openCalendar()" />
-      </div></div>
+          <input angular-mydatepicker name="dataEfetivacao" [(ngModel)]="evento.dataEfetivacao"
+            #dpefetivacao="angular-mydatepicker" [options]="myDpOptions" [locale]="locale"
+            (click)="dpefetivacao.openCalendar()" />
+        </div>
+      </div>
     </span>
     <span class="cell">
       <div class="datepickercontainer">
         <div class="datepickerelement">
-      <input angular-mydatepicker name="dataOriginal" type="text" [(ngModel)]="evento.dataOriginal"
-        #dporiginal="angular-mydatepicker" (click)="dporiginal.openCalendar()" [options]="myDpOptions"
-        [locale]="locale" />
-      </div></div>
+          <input angular-mydatepicker name="dataOriginal" type="text" [(ngModel)]="evento.dataOriginal"
+            #dporiginal="angular-mydatepicker" (click)="dporiginal.openCalendar()" [options]="myDpOptions"
+            [locale]="locale" />
+        </div>
+      </div>
     </span>
     <span class="cell">
       <div class="datepickercontainer">
         <div class="datepickerelement">
-      <input angular-mydatepicker name="dataLiquidacao" type="text" [(ngModel)]="evento.dataLiquidacao"
-        #dpliquidacao="angular-mydatepicker" (click)="dpliquidacao.openCalendar()" [options]="myDpOptions"
-        [locale]="locale" />
-      </div></div>
+          <input angular-mydatepicker name="dataLiquidacao" type="text" [(ngModel)]="evento.dataLiquidacao"
+            #dpliquidacao="angular-mydatepicker" (click)="dpliquidacao.openCalendar()" [options]="myDpOptions"
+            [locale]="locale" />
+        </div>
+      </div>
     </span>
     <span class="cell">{{evento.tipoIf}}</span>
     <span class="cell">{{evento.codigoIf}}</span>
@@ -63,7 +69,6 @@
               {{tipo.tipoEvento.descricao}}
             </mat-option>
           </mat-select>
-
         </mat-form-field>
       </div>
       <div *ngIf="evento.tipoEvento.id != null">
@@ -79,6 +84,8 @@
     <span class="cell">{{evento.agentePagamento}}</span>
     <span class="cell"><button class="delete" title="delete evento" (click)="delete(evento)">x</button></span>
   </div>
-  <div style="max-width: 100%; background-color: green; text-align: center;">
-    <button title="add evento" (click)="add()">Add</button>
-  </div>
+</div> <!--fim corpo -->
+
+<div class="footer">
+      <button title="add evento" (click)="add()">Add</button>
+</div>

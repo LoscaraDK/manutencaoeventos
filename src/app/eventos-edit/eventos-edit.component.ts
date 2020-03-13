@@ -29,11 +29,7 @@ export class EventosEditComponent implements OnInit {
                                         .dpefetivacao .myDpIconLeftArrow,
                                         .myDpIconRightArrow {
                                                 color: red;
-                                            },
-                                            .myDpSelectorAbsolute {
-                                              position: relative !important;
-                                            }  
-
+                                            }
                                         `
                                     } 
                                     };
