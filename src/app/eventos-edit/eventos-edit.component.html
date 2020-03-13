@@ -1,21 +1,45 @@
 <div class="table">
   <!-- Header -->
   <div class="row  row-header">
-    <span class="cell td">Id Evento</span>
-    <span class="cell td">Data Efetivação</span>
-    <span class="cell td">Data Original</span>
-    <span class="cell td">Data Liquidação</span>
-    <span class="cell td">Tipo IF</span>
+    <span class="cell td tamanho-minimo">
+      <div class="div-display-text" (click)="sort('id')">
+        Id<div [class]="order === 'asc' ? 'triangulo-para-baixo' : 'triangulo-para-cima'">
+        </div>
+      </div>
+    </span>
+    <span class="cell td">
+      <div class="div-display-text"
+        (click)="sort(['dataEfetivacao.singleDate.date.year','dataEfetivacao.singleDate.date.month','dataEfetivacao.singleDate.date.day'])">
+        Data Efetivação<div [class]="order === 'asc' ? 'triangulo-para-baixo' : 'triangulo-para-cima'"></div>
+      </div>
+    </span>
+    <span class="cell td">
+      <div class="div-display-text"
+        (click)="sort(['dataOriginal.singleDate.date.year','dataOriginal.singleDate.date.month','dataOriginal.singleDate.date.day'])">
+        Data Original<div [class]="order === 'asc' ? 'triangulo-para-baixo' : 'triangulo-para-cima'"></div>
+      </div>
+    </span>
+    <span class="cell td">
+      <div class="div-display-text"
+        (click)="sort(['dataLiquidacao.singleDate.date.year','dataLiquidacao.singleDate.date.month','dataLiquidacao.singleDate.date.day'])">
+        Data Liquidação<div [class]="order === 'asc' ? 'triangulo-para-baixo' : 'triangulo-para-cima'"></div>
+      </div>
+    </span>
+    <span class="cell td tamanho-minimo">Tipo IF</span>
     <span class="cell td">Código IF</span>
-    <span class="cell td">Evento</span>
-    <span class="cell td">Incorpora Juros</span>
+    <span class="cell td">
+      <div class="div-display-text" (click)="sort('tipoEvento.descricao')">
+        Evento<div [class]="order === 'asc' ? 'triangulo-para-baixo' : 'triangulo-para-cima'"></div>
+      </div>
+    </span>
+    <span class="cell td tamanho-minimo">Incorpora Juros</span>
     <span class="cell td">Taxa</span>
     <span class="cell td">P.U.</span>
     <span class="cell td">P.U. de Juros sobre Amort.</span>
     <span class="cell td">Valor Residual Unitário</span>
     <span class="cell td">Registrador/Emissor (Nome Simplificado)</span>
     <span class="cell td">Agente de Pagamento (Nome Simplificado)</span>
-    <span class="cell td"></span>
+    <span class="cell td tamanho-minimo"></span>
   </div>
 
   <!-- Corpo -->
@@ -84,8 +108,9 @@
     <span class="cell">{{evento.agentePagamento}}</span>
     <span class="cell"><button class="delete" title="delete evento" (click)="delete(evento)">x</button></span>
   </div>
-</div> <!--fim corpo -->
+</div>
+<!--fim corpo -->
 
 <div class="footer">
-      <button title="add evento" (click)="add()">Add</button>
+  <button title="add evento" (click)="add()">Incluir Evento</button>
 </div>
