@@ -1,12 +1,16 @@
+import { forEach } from '@angular/router/src/utils/collection';
 import { Component, OnInit } from '@angular/core';
 import { IAngularMyDpOptions, IMyDateModel } from 'angular-mydatepicker';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute } from '@angular/router';
 import { EventosListService } from '../eventos-list/eventos-list.service';
 import { EventosEditService } from './eventos-edit.service';
 import { FormControl, Validators } from '@angular/forms';
 import * as _ from 'lodash';
 
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import { IEvento, Evento } from '../IEvento';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 
 @Component({
@@ -26,18 +30,11 @@ export class EventosEditComponent implements OnInit {
     alignSelectorRight: false,
     openSelectorTopOfInput: false,
     inline: false,
-    stylesData: {
-      selector: 'dpefetivacao',
-      styles: `
-                                        .dpefetivacao .myDpIconLeftArrow,
-                                        .myDpIconRightArrow {
-                                                color: red;
-                                            }
-                                        `
-    }
   };
 
-  tiposEvento = [{ tipoEvento: { id: 1, descricao: 'JUROS' } }, { tipoEvento: { id: 2, descricao: 'AMORTIZACAO' } }, { tipoEvento: { id: 3, descricao: 'VENCIMENTO(RESGATE)' } }];
+  tiposEvento = [{ tipoEvento: { id: 1, descricao: 'JUROS' } },
+  { tipoEvento: { id: 2, descricao: 'AMORTIZACAO' } },
+  { tipoEvento: { id: 3, descricao: 'VENCIMENTO(RESGATE)' } }];
 
   codigoIF: string;
   codigoTipoIF: string;
@@ -48,7 +45,10 @@ export class EventosEditComponent implements OnInit {
 
   constructor(private eventosListService: EventosListService,
     private eventosEditService: EventosEditService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute) { 
+
+      
+    }
 
   selectFormControl: FormControl;
   ngOnInit(): void {
@@ -76,7 +76,7 @@ export class EventosEditComponent implements OnInit {
       this.agPagto = this.eventos[0].agentePagamento;
     }
 
-    var novoEvento = new Evento();
+    const novoEvento = new Evento();
     novoEvento.codigoIf = this.codigoIF;
     novoEvento.tipoIf = this.codigoTipoIF;
     novoEvento.registradorOuEmissor = this.registrador;
@@ -88,15 +88,98 @@ export class EventosEditComponent implements OnInit {
     });
   }
   //faz sort de um array
+  // tslint:disable-next-line: max-line-length
   //this.eventos = _.sortByOrder(this.eventos, ['dataOriginal.singleDate.date.day','dataOriginal.singleDate.date.month','dataOriginal.singleDate.date.year']);
   sort(a): void {
-    this.order = this.order == 'asc' ? 'desc' : 'asc';
+    this.order = this.order === 'asc' ? 'desc' : 'asc';
     this.eventos = _.orderBy(this.eventos, a, [this.order]);
   }
 
   formatDateToString(dateParam: IMyDateModel): string {
+    // tslint:disable-next-line: max-line-length
     return dateParam.singleDate.date.day.toString() + '/' + dateParam.singleDate.date.month.toString() + '/' + dateParam.singleDate.date.year.toString();
   }
 
+  gerarPdf(): void {
+
+    var doc = new jsPDF({ orientation: 'l', format: 'a4', unit: 'mm', });
+    
+    var col = ["Id",
+      "Data Efetivaçãp",
+      "Data Original",
+      "Data Liquidação",
+      "Tipo IF",
+      "Codigo IF",
+      "Evento",
+      "Incorpora Juros",
+      "Taxa",
+      "P.U.",
+      "P.U. de Juros sobre Amort.",
+      "Valor Residual Unitário",
+      "Registrador/Emissor (Nome Simplificado)",
+      "Agente de Pagamento (Nome Simplificado)"];
+    var rows = [];
+
+
+    //rows = this.json2array(this.eventos);
+    rows =  this.parseAll(this.eventos);  
+    doc.autoTable(col, rows, {
+      bodyStyles: {
+        cellWidth: 'wrap',
+        cellPadding: 1,
+        fontSize: 8,
+      },
+      columnStyles: {
+        cellWidth: 'auto',
+        cellPadding: 1,
+        fontSize: 3,
+      },
+      headStyles: {
+        cellWidth: 'auto',
+        cellPadding: 1,
+        fontSize: 8,
+
+      },
+      margin: 2,
+    });
+
+    doc.save('aaa.pdf');
+  
+     
+    
+    
+  }
+  
+  parseAll(obj) {
+    let parentArray = [];
+    const keys = Object.keys( this.eventos);
+    console.log('tamenho'+ keys.length);
+    keys.forEach((key) => {
+      const linha = JSON.stringify(this.eventos[key]);
+      const linhakeys = Object.keys(JSON.parse(linha));
+      let childrenArray = [];
+      linhakeys.forEach((keyAux) => {
+        console.log('keyAux => ' + keyAux);
+        console.log('valor' + JSON.stringify(JSON.parse(linha)[keyAux]));
+        if(JSON.parse(linha)[keyAux].hasOwnProperty('singleDate')){
+          console.log('tem propriedade? ' + true);
+          childrenArray.push(this.formatDateToString(JSON.parse(linha)[keyAux]));
+        }else if(JSON.parse(linha)[keyAux].hasOwnProperty('id') && JSON.parse(linha)[keyAux].hasOwnProperty('descricao') ){
+          console.log('tem propriedade? ' + true);
+          childrenArray.push(JSON.parse(linha)[keyAux].descricao);
+        }else{
+          let strValor = JSON.stringify(JSON.parse(linha)[keyAux]);
+          childrenArray.push(eval(strValor));
+        }
+        
+      });
+      parentArray.push(childrenArray);
+    });
+    console.log(parentArray);
+    return parentArray;
+  }
+  
+
+  
 }
 

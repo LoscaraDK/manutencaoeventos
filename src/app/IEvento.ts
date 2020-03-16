@@ -1,7 +1,7 @@
 import { IMyDateModel } from 'angular-mydatepicker';
 
 export interface IEvento {
-    id: number;
+    numEvento: number;
     dataEfetivacao: IMyDateModel;
     dataOriginal: IMyDateModel;
     dataLiquidacao: IMyDateModel;
@@ -21,13 +21,13 @@ export interface IEvento {
 }
 
 export class Evento implements IEvento {
-    id: number;
+    numEvento: number;
     dataEfetivacao: IMyDateModel;
     dataOriginal: IMyDateModel;
     dataLiquidacao: IMyDateModel;
     tipoIf: string;
     codigoIf: string;
-    tipoEvento: ITipoEvento = new TipoEvento();
+    tipoEvento: ITipoEvento;
     incorporaJuros: boolean;
     taxa: number;
     pu: number;

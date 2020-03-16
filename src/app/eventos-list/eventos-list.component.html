@@ -1,117 +1,61 @@
-<div *ngIf="!modoEdicao">
-<table class="table-striped">
-      <tr>
-        <th>Id Evento</th>
-        <th>Data Efetivação</th>
-        <th>Data Original</th>
-        <th>Data Liquidação</th>
-        <th>Tipo IF</th>
-        <th>Código IF</th>
-        <th>Evento</th>
-        <th>Incorpora Juros</th>
-        <th>Taxa</th>
-        <th>P.U.</th>
-        <th>P.U. de Juros sobre Amort.</th>
-        <th>Valor Residual Unitário</th>
-        <th>Registrador/Emissor<br/>(Nome Simplificado)</th>
-        <th>Agente de Pagamento<br/>(Nome Simplificado)</th>
-      </tr>
-      <tr *ngFor="let evento of eventos">
-          <td>{{evento.id}}</td>
-          <td>
-              
-            <p> 
-              {{formatDateToString(evento.dataEfetivacao)}}
-            </p>
-          </td>
-          <td>
-            <p>
-              {{formatDateToString(evento.dataOriginal)}}
-            </p>
-          </td>
-          <td>
-            <p>
-              {{formatDateToString(evento.dataLiquidacao)}}
-            </p>
-          </td>
-          <td>{{evento.tipoIf}}</td>
-          <td>{{evento.codigoIf}}</td>
-          <td>{{evento.tipoEvento.descricao}}</td>
-          <td>{{evento.incorporaJuros ? 'Sim' : 'Não' }}</td>
-          <td>{{evento.taxa}}</td>
-          <td>{{evento.pu}}</td>
-          <td>{{evento.puJurosSobreAmortizacao}}</td>
-          <td>{{evento.valorResidualUnitario}}</td>
-          <td>{{evento.registradorOuEmissor}}</td>
-          <td>{{evento.agentePagamento}}</td>
-        </tr>
-  </table>
+<div class="table">
+  <!-- Header -->
+  <div class="row  row-header">
+    <span class="cell td tamanho-minimo">
+      <div class="div-display-text" (click)="sort('numEvento')">
+        Id<div [class]="order === 'asc' ? 'triangulo-para-baixo' : 'triangulo-para-cima'">
+        </div>
+      </div>
+    </span>
+    <span class="cell td">
+      <div class="div-display-text"
+        (click)="sort(['dataEfetivacao.singleDate.date.year','dataEfetivacao.singleDate.date.month','dataEfetivacao.singleDate.date.day'])">
+        Data Efetivação<div [class]="order === 'asc' ? 'triangulo-para-baixo' : 'triangulo-para-cima'"></div>
+      </div>
+    </span>
+    <span class="cell td">
+      <div class="div-display-text"
+        (click)="sort(['dataOriginal.singleDate.date.year','dataOriginal.singleDate.date.month','dataOriginal.singleDate.date.day'])">
+        Data Original<div [class]="order === 'asc' ? 'triangulo-para-baixo' : 'triangulo-para-cima'"></div>
+      </div>
+    </span>
+    <span class="cell td">
+      <div class="div-display-text"
+        (click)="sort(['dataLiquidacao.singleDate.date.year','dataLiquidacao.singleDate.date.month','dataLiquidacao.singleDate.date.day'])">
+        Data Liquidação<div [class]="order === 'asc' ? 'triangulo-para-baixo' : 'triangulo-para-cima'"></div>
+      </div>
+    </span>
+    <span class="cell td tamanho-minimo">Tipo IF</span>
+    <span class="cell td">Código IF</span>
+    <span class="cell td">
+      <div class="div-display-text" (click)="sort('tipoEvento.descricao')">
+        Evento<div [class]="order === 'asc' ? 'triangulo-para-baixo' : 'triangulo-para-cima'"></div>
+      </div>
+    </span>
+    <span class="cell td tamanho-minimo">Incorpora Juros</span>
+    <span class="cell td">Taxa</span>
+    <span class="cell td">P.U.</span>
+    <span class="cell td">P.U. de Juros sobre Amort.</span>
+    <span class="cell td">Valor Residual Unitário</span>
+    <span class="cell td">Registrador/Emissor (Nome Simplificado)</span>
+    <span class="cell td">Agente de Pagamento (Nome Simplificado)</span>
+  </div>
+
+  <!-- Corpo -->
+  <div class="row span-resultado" *ngFor="let evento of eventos">
+    <span class="cell">{{evento.numEvento}}</span>
+    <span class="cell">{{formatDateToString(evento.dataEfetivacao)}}</span>
+    <span class="cell">{{formatDateToString(evento.dataOriginal)}}</span>
+    <span class="cell">{{formatDateToString(evento.dataLiquidacao)}}</span>
+    <span class="cell">{{evento.tipoIf}}</span>
+    <span class="cell">{{evento.codigoIf}}</span>
+    <span class="cell">{{evento.tipoEvento.descricao}}</span>
+    <span class="cell">{{evento.incorporaJuros}}</span>
+    <span class="cell">{{evento.taxa}}</span>
+    <span class="cell">{{evento.pu}}</span>
+    <span class="cell">{{evento.puJurosSobreAmortizacao}}</span>
+    <span class="cell">{{evento.valorResidualUnitario}}</span>
+    <span class="cell">{{evento.registradorOuEmissor}}</span>
+    <span class="cell">{{evento.agentePagamento}}</span>
+  </div>
 </div>
-<!--div *ngIf="modoEdicao">
-  <table class="table-striped">
-        <tr>
-          <th>Id Evento</th>
-          <th>Data Efetivação</th>
-          <th>Data Original</th>
-          <th>Data Liquidação</th>
-          <th>Tipo IF</th>
-          <th>Código IF</th>
-          <th>Evento</th>
-          <th>Incorpora Juros</th>
-          <th>Taxa</th>
-          <th>P.U.</th>
-          <th>P.U. de Juros sobre Amort.</th>
-          <th>Valor Residual Unitário</th>
-          <th>Registrador/Emissor (Nome Simplificado)</th>
-          <th>Agente de Pagamento (Nome Simplificado)</th>
-          <th></th>
-       </tr>
-        <tr *ngFor="let evento of eventos">
-            <td>{{evento.id}}</td>
-            <td>
-               <input angular-mydatepicker 
-                    name="dataEfetivacao" 
-                    [(ngModel)]="evento.dataEfetivacao" 
-                    #dpefetivacao="angular-mydatepicker" 
-                    [options]="myDpOptions" 
-                    [locale]="locale"
-                    (click)="dpefetivacao.openCalendar()"
-                    />
-            </td>
-            
-            <td>
-              <input angular-mydatepicker 
-                    name="dataOriginal" 
-                    type="text"
-                    [(ngModel)]="evento.dataOriginal" 
-                    #dporiginal="angular-mydatepicker" 
-                    (click)="dporiginal.openCalendar()"
-                    [options]="myDpOptions" 
-                    [locale]="locale"/>
-              </td>
-            <td>
-              <input angular-mydatepicker 
-                    name="dataLiquidacao" 
-                    type="text"
-                    [(ngModel)]="evento.dataLiquidacao" 
-                    #dpliquidacao="angular-mydatepicker" 
-                    (click)="dpliquidacao.openCalendar()"
-                    [options]="myDpOptions" 
-                    [locale]="locale"/>
-            </td>
-            <td>{{evento.tipoIf}}</td>
-            <td>{{evento.codigoIf}}</td>
-            <td>{{evento.evento}}</td>
-            <td><input type="checkbox" [(ngModel)]="evento.incorporaJuros"></td>
-            <td><input type="text" [(ngModel)]="evento.taxa"></td>
-            <td><input type="text" [(ngModel)]="evento.pu"></td>
-            <td><input type="text" [(ngModel)]="evento.puJurosSobreAmortizacao"></td>
-            <td><input type="text" [(ngModel)]="evento.valorResidualUnitario"></td>
-            <td>{{evento.registradorOuEmissor}}</td>
-            <td>{{evento.agentePagamento}}</td>
-            <td><button class="delete" title="delete evento"
-              (click)="delete(evento)">x</button></td>
-          </tr>
-    </table>
-  </div-->
-  

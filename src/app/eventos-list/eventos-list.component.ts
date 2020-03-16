@@ -3,7 +3,7 @@ import { EventosListService } from './eventos-list.service';
 import { IEvento } from '../IEvento';
 import {IAngularMyDpOptions, IMyDateModel, IMySingleDateModel} from 'angular-mydatepicker';
 import { ActivatedRoute } from '@angular/router'
-
+import * as _ from 'lodash';
 @Component({
   selector: 'app-eventos-list',
   templateUrl: './eventos-list.component.html',
@@ -16,7 +16,7 @@ export class EventosListComponent implements OnInit {
   
   locale: string = 'pt-br';
   myDpOptions: IAngularMyDpOptions = {dateRange: false,dateFormat: 'dd/mm/yyyy'};
-  
+  order: string = 'asc';
   constructor(private eventosService: EventosListService,private route : ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -31,5 +31,10 @@ export class EventosListComponent implements OnInit {
 
   formatDateToString(dateParam: IMyDateModel): string {
     return dateParam.singleDate.date.day.toString() + '/' + dateParam.singleDate.date.month.toString() + '/' + dateParam.singleDate.date.year.toString();
+  }
+
+  sort(a): void {
+    this.order = this.order == 'asc' ? 'desc' : 'asc';
+    this.eventos = _.orderBy(this.eventos, a, [this.order]);
   }
 }
