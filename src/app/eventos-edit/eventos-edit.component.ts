@@ -10,7 +10,7 @@ import * as _ from 'lodash';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { IEvento, Evento } from '../IEvento';
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { ExportToCsv } from 'export-to-csv';
 
 
 @Component({
@@ -31,6 +31,21 @@ export class EventosEditComponent implements OnInit {
     openSelectorTopOfInput: false,
     inline: false,
   };
+
+  col = ["Id",
+      "Data Efetivaçãp",
+      "Data Original",
+      "Data Liquidação",
+      "Tipo IF",
+      "Codigo IF",
+      "Evento",
+      "Incorpora Juros",
+      "Taxa",
+      "P.U.",
+      "P.U. de Juros sobre Amort.",
+      "Valor Residual Unitário",
+      "Registrador/Emissor (Nome Simplificado)",
+      "Agente de Pagamento (Nome Simplificado)"];
 
   tiposEvento = [{ tipoEvento: { id: 1, descricao: 'JUROS' } },
   { tipoEvento: { id: 2, descricao: 'AMORTIZACAO' } },
@@ -104,26 +119,26 @@ export class EventosEditComponent implements OnInit {
 
     var doc = new jsPDF({ orientation: 'l', format: 'a4', unit: 'mm', });
     
-    var col = ["Id",
-      "Data Efetivaçãp",
-      "Data Original",
-      "Data Liquidação",
-      "Tipo IF",
-      "Codigo IF",
-      "Evento",
-      "Incorpora Juros",
-      "Taxa",
-      "P.U.",
-      "P.U. de Juros sobre Amort.",
-      "Valor Residual Unitário",
-      "Registrador/Emissor (Nome Simplificado)",
-      "Agente de Pagamento (Nome Simplificado)"];
+    // const col = ["Id",
+    //   "Data Efetivaçãp",
+    //   "Data Original",
+    //   "Data Liquidação",
+    //   "Tipo IF",
+    //   "Codigo IF",
+    //   "Evento",
+    //   "Incorpora Juros",
+    //   "Taxa",
+    //   "P.U.",
+    //   "P.U. de Juros sobre Amort.",
+    //   "Valor Residual Unitário",
+    //   "Registrador/Emissor (Nome Simplificado)",
+    //   "Agente de Pagamento (Nome Simplificado)"];
     var rows = [];
 
 
     //rows = this.json2array(this.eventos);
     rows =  this.parseAll(this.eventos);  
-    doc.autoTable(col, rows, {
+    doc.autoTable(this.col, rows, {
       bodyStyles: {
         cellWidth: 'wrap',
         cellPadding: 1,
@@ -143,13 +158,30 @@ export class EventosEditComponent implements OnInit {
       margin: 2,
     });
 
-    doc.save('aaa.pdf');
-  
-     
-    
-    
+    doc.save('manutencaoeventos.pdf');
   }
   
+  gerarCSV(): void {
+    const options = { 
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalSeparator: '.',
+      showLabels: true, 
+      //showTitle: true,
+      //title: 'My Awesome CSV',
+      useTextFile: false,
+      useBom: true,
+      //useKeysAsHeaders: true,
+      headers: null, //<-- Won't work with useKeysAsHeaders present!-->
+    };
+   options.headers = this.col;
+  
+
+    const csvExporter = new ExportToCsv(options);
+     
+    csvExporter.generateCsv(this.parseAll(this.eventos));
+  }
+
   parseAll(obj) {
     let parentArray = [];
     const keys = Object.keys( this.eventos);
