@@ -1,10 +1,9 @@
 <div class="table">
   <!-- Header -->
-  <div class="row  row-header">
+  <div class="row row-header">
     <span class="cell td tamanho-minimo">
-      <div class="div-display-text" (click)="sort('numEvento')">
-        Id<div [class]="order === 'asc' ? 'triangulo-para-baixo' : 'triangulo-para-cima'">
-        </div>
+      <div class="div-display-text" (click)="sort('id')">
+        Id<div [class]="order === 'asc' ? 'triangulo-para-baixo' : 'triangulo-para-cima'"></div>
       </div>
     </span>
     <span class="cell td">
@@ -14,8 +13,7 @@
       </div>
     </span>
     <span class="cell td">
-      <div class="div-display-text"
-        (click)="sort(['dataOriginal.singleDate.date.year','dataOriginal.singleDate.date.month','dataOriginal.singleDate.date.day'])">
+      <div class="div-display-text" (click)="sort(['dataOriginal.singleDate.date.year','dataOriginal.singleDate.date.month','dataOriginal.singleDate.date.day'])">
         Data Original<div [class]="order === 'asc' ? 'triangulo-para-baixo' : 'triangulo-para-cima'"></div>
       </div>
     </span>
@@ -44,7 +42,7 @@
 
   <!-- Corpo -->
   <div class="row span-resultado" *ngFor="let evento of eventos">
-    <span class="cell">{{evento.numEvento}}</span>
+    <span class="cell">{{evento.id}}</span>
     <span class="cell">
       <div class="datepickercontainer">
         <div class="datepickerelement">
@@ -102,8 +100,8 @@
 </div>
 <!--fim corpo -->
 
-<div class="footer">
-  <div><button title="add evento" (click)="add()">Incluir Evento</button></div>
-  <div class="ico" (click)="gerarPdf()"></div>  
-  <div><button title="gerar csv" (click)="gerarCSV()">gerar cvs</button></div>
+<div class="footer-container">
+  <div class="insert-line-icon" title="Nova linha" (click)="add()"></div>
+  <div class="pdf-icon" title="Geração de arquivo pdf" (click)="gerarPdf()"></div>  
+  <div class="csv-icon" title="Geração de arquivo csv" (click)="gerarCSV()"></div>  
 </div>

@@ -60,12 +60,10 @@ export class EventosEditComponent implements OnInit {
 
   constructor(private eventosListService: EventosListService,
     private eventosEditService: EventosEditService,
-    private route: ActivatedRoute) { 
-
-      
-    }
+    private route: ActivatedRoute) {}
 
   selectFormControl: FormControl;
+  
   ngOnInit(): void {
     console.log(this.route.snapshot.data.modoEdicao);
     this.modoEdicao = this.route.snapshot.data.modoEdicao;
@@ -91,16 +89,16 @@ export class EventosEditComponent implements OnInit {
       this.agPagto = this.eventos[0].agentePagamento;
     }
 
-    const novoEvento = new Evento();
+    let novoEvento = new Evento();
     novoEvento.codigoIf = this.codigoIF;
     novoEvento.tipoIf = this.codigoTipoIF;
     novoEvento.registradorOuEmissor = this.registrador;
     novoEvento.agentePagamento = this.agPagto;
+    
+
+    this.eventosEditService.addEvento(novoEvento).subscribe(evento => {this.eventos.push(evento);});
 
 
-    this.eventosEditService.addEvento(novoEvento).subscribe(evento => {
-      this.eventos.push(evento);
-    });
   }
   //faz sort de um array
   // tslint:disable-next-line: max-line-length
@@ -118,21 +116,6 @@ export class EventosEditComponent implements OnInit {
   gerarPdf(): void {
 
     var doc = new jsPDF({ orientation: 'l', format: 'a4', unit: 'mm', });
-    
-    // const col = ["Id",
-    //   "Data Efetivaçãp",
-    //   "Data Original",
-    //   "Data Liquidação",
-    //   "Tipo IF",
-    //   "Codigo IF",
-    //   "Evento",
-    //   "Incorpora Juros",
-    //   "Taxa",
-    //   "P.U.",
-    //   "P.U. de Juros sobre Amort.",
-    //   "Valor Residual Unitário",
-    //   "Registrador/Emissor (Nome Simplificado)",
-    //   "Agente de Pagamento (Nome Simplificado)"];
     var rows = [];
 
 

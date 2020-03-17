@@ -2,7 +2,7 @@
   <!-- Header -->
   <div class="row  row-header">
     <span class="cell td tamanho-minimo">
-      <div class="div-display-text" (click)="sort('numEvento')">
+      <div class="div-display-text" (click)="sort('id')">
         Id<div [class]="order === 'asc' ? 'triangulo-para-baixo' : 'triangulo-para-cima'">
         </div>
       </div>
@@ -43,7 +43,7 @@
 
   <!-- Corpo -->
   <div class="row span-resultado" *ngFor="let evento of eventos">
-    <span class="cell">{{evento.numEvento}}</span>
+    <span class="cell">{{evento.id}}</span>
     <span class="cell">{{formatDateToString(evento.dataEfetivacao)}}</span>
     <span class="cell">{{formatDateToString(evento.dataOriginal)}}</span>
     <span class="cell">{{formatDateToString(evento.dataLiquidacao)}}</span>

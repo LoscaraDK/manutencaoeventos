@@ -17,7 +17,7 @@ export class EventosEditService {
 
   /** DELETE: delete the Evento from the server */
   deleteEvento (evento: IEvento | number): Observable<IEvento> {
-    const id = typeof evento === 'number' ? evento : evento.numEvento;
+    const id = typeof evento === 'number' ? evento : evento.id;
     const url = `${this.eventosURL}/${id}`;
 
     return this.http.delete<IEvento>(url, this.httpOptions).pipe(
@@ -29,7 +29,7 @@ export class EventosEditService {
    /** POST: add a new Evento to the server */
    addEvento (evento: IEvento): Observable<IEvento> {
     return this.http.post<IEvento>(this.eventosURL, evento, this.httpOptions).pipe(
-      tap((newEvento: IEvento) => this.log(`added Evento w/ id=${newEvento.numEvento}`)),
+      tap((newEvento: IEvento) => this.log(`added Evento w/ id=${newEvento.id}`)),
       catchError(this.handleError<IEvento>('addEvento'))
     );
   }
