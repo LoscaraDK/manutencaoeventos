@@ -15,12 +15,14 @@ import { EventosEditComponent } from './eventos-edit/eventos-edit.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material';
+import { FiltroManutencaoEventosComponent } from './filtro-manutencao-eventos/filtro-manutencao-eventos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EventosListComponent,
-    EventosEditComponent
+    EventosEditComponent,
+    FiltroManutencaoEventosComponent
   ],
   imports: [
     BrowserModule,BrowserAnimationsModule,MatSelectModule,ReactiveFormsModule,
