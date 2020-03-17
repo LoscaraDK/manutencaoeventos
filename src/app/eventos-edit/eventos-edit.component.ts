@@ -33,19 +33,19 @@ export class EventosEditComponent implements OnInit {
   };
 
   col = ["Id",
-      "Data Efetivaçãp",
-      "Data Original",
-      "Data Liquidação",
-      "Tipo IF",
-      "Codigo IF",
-      "Evento",
-      "Incorpora Juros",
-      "Taxa",
-      "P.U.",
-      "P.U. de Juros sobre Amort.",
-      "Valor Residual Unitário",
-      "Registrador/Emissor (Nome Simplificado)",
-      "Agente de Pagamento (Nome Simplificado)"];
+    "Data Efetivaçãp",
+    "Data Original",
+    "Data Liquidação",
+    "Tipo IF",
+    "Codigo IF",
+    "Evento",
+    "Incorpora Juros",
+    "Taxa",
+    "P.U.",
+    "P.U. de Juros sobre Amort.",
+    "Valor Residual Unitário",
+    "Registrador/Emissor (Nome Simplificado)",
+    "Agente de Pagamento (Nome Simplificado)"];
 
   tiposEvento = [{ tipoEvento: { id: 1, descricao: 'JUROS' } },
   { tipoEvento: { id: 2, descricao: 'AMORTIZACAO' } },
@@ -60,16 +60,14 @@ export class EventosEditComponent implements OnInit {
 
   constructor(private eventosListService: EventosListService,
     private eventosEditService: EventosEditService,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute) { }
 
   selectFormControl: FormControl;
-  
+
   ngOnInit(): void {
     console.log(this.route.snapshot.data.modoEdicao);
     this.modoEdicao = this.route.snapshot.data.modoEdicao;
     this.getEventos();
-
-    this.selectFormControl = new FormControl('', [Validators.required]);
   }
 
   getEventos(): void {
@@ -89,14 +87,15 @@ export class EventosEditComponent implements OnInit {
       this.agPagto = this.eventos[0].agentePagamento;
     }
 
-    let novoEvento = new Evento();
+    const novoEvento = new Evento();
     novoEvento.codigoIf = this.codigoIF;
     novoEvento.tipoIf = this.codigoTipoIF;
     novoEvento.registradorOuEmissor = this.registrador;
     novoEvento.agentePagamento = this.agPagto;
-    
 
-    this.eventosEditService.addEvento(novoEvento).subscribe(evento => {this.eventos.push(evento);});
+    this.eventosEditService.addEvento(novoEvento).subscribe(evento => {
+      this.eventos.push(evento);
+    });
 
 
   }
@@ -115,12 +114,8 @@ export class EventosEditComponent implements OnInit {
 
   gerarPdf(): void {
 
-    var doc = new jsPDF({ orientation: 'l', format: 'a4', unit: 'mm', });
-    var rows = [];
-
-
-    //rows = this.json2array(this.eventos);
-    rows =  this.parseAll(this.eventos);  
+    const doc = new jsPDF({ orientation: 'l', format: 'a4', unit: 'mm', });
+    const rows = this.parseAll(this.eventos);
     doc.autoTable(this.col, rows, {
       bodyStyles: {
         cellWidth: 'wrap',
@@ -143,13 +138,14 @@ export class EventosEditComponent implements OnInit {
 
     doc.save('manutencaoeventos.pdf');
   }
-  
+
   gerarCSV(): void {
-    const options = { 
+    const options = {
       fieldSeparator: ',',
       quoteStrings: '"',
       decimalSeparator: '.',
-      showLabels: true, 
+      showLabels: true,
+      filename: 'manutencaoeventos',
       //showTitle: true,
       //title: 'My Awesome CSV',
       useTextFile: false,
@@ -157,18 +153,18 @@ export class EventosEditComponent implements OnInit {
       //useKeysAsHeaders: true,
       headers: null, //<-- Won't work with useKeysAsHeaders present!-->
     };
-   options.headers = this.col;
-  
+    options.headers = this.col;
+
 
     const csvExporter = new ExportToCsv(options);
-     
+
     csvExporter.generateCsv(this.parseAll(this.eventos));
   }
 
   parseAll(obj) {
     let parentArray = [];
-    const keys = Object.keys( this.eventos);
-    console.log('tamenho'+ keys.length);
+    const keys = Object.keys(this.eventos);
+    console.log('tamenho' + keys.length);
     keys.forEach((key) => {
       const linha = JSON.stringify(this.eventos[key]);
       const linhakeys = Object.keys(JSON.parse(linha));
@@ -176,25 +172,25 @@ export class EventosEditComponent implements OnInit {
       linhakeys.forEach((keyAux) => {
         console.log('keyAux => ' + keyAux);
         console.log('valor' + JSON.stringify(JSON.parse(linha)[keyAux]));
-        if(JSON.parse(linha)[keyAux].hasOwnProperty('singleDate')){
+        if (JSON.parse(linha)[keyAux].hasOwnProperty('singleDate')) {
           console.log('tem propriedade? ' + true);
           childrenArray.push(this.formatDateToString(JSON.parse(linha)[keyAux]));
-        }else if(JSON.parse(linha)[keyAux].hasOwnProperty('id') && JSON.parse(linha)[keyAux].hasOwnProperty('descricao') ){
+        } else if (JSON.parse(linha)[keyAux].hasOwnProperty('id') && JSON.parse(linha)[keyAux].hasOwnProperty('descricao')) {
           console.log('tem propriedade? ' + true);
           childrenArray.push(JSON.parse(linha)[keyAux].descricao);
-        }else{
+        } else {
           let strValor = JSON.stringify(JSON.parse(linha)[keyAux]);
           childrenArray.push(eval(strValor));
         }
-        
+
       });
       parentArray.push(childrenArray);
     });
     console.log(parentArray);
     return parentArray;
   }
-  
 
-  
+
+
 }
 

@@ -76,7 +76,7 @@
       <div *ngIf="evento.tipoEvento.id == null">
         <mat-form-field>
           <mat-label>selecione</mat-label>
-          <mat-select [(ngModel)]="evento.tipoEvento" [formControl]="selectFormControl" required>
+          <mat-select [(ngModel)]="evento.tipoEvento" required>
             <mat-option>--</mat-option>
             <mat-option *ngFor="let tipo of tiposEvento" [value]="tipo.tipoEvento">
               {{tipo.tipoEvento.descricao}}
@@ -104,4 +104,5 @@
   <div class="insert-line-icon" title="Nova linha" (click)="add()"></div>
   <div class="pdf-icon" title="Geração de arquivo pdf" (click)="gerarPdf()"></div>  
   <div class="csv-icon" title="Geração de arquivo csv" (click)="gerarCSV()"></div>  
+  <div><a routerLink="/">list</a></div>
 </div>

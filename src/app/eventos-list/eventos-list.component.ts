@@ -4,6 +4,11 @@ import { IEvento } from '../IEvento';
 import {IAngularMyDpOptions, IMyDateModel, IMySingleDateModel} from 'angular-mydatepicker';
 import { ActivatedRoute } from '@angular/router'
 import * as _ from 'lodash';
+
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import { ExportToCsv } from 'export-to-csv';
+
 @Component({
   selector: 'app-eventos-list',
   templateUrl: './eventos-list.component.html',
@@ -17,6 +22,22 @@ export class EventosListComponent implements OnInit {
   locale: string = 'pt-br';
   myDpOptions: IAngularMyDpOptions = {dateRange: false,dateFormat: 'dd/mm/yyyy'};
   order: string = 'asc';
+
+  col = ["Id",
+  "Data Efetivaçãp",
+  "Data Original",
+  "Data Liquidação",
+  "Tipo IF",
+  "Codigo IF",
+  "Evento",
+  "Incorpora Juros",
+  "Taxa",
+  "P.U.",
+  "P.U. de Juros sobre Amort.",
+  "Valor Residual Unitário",
+  "Registrador/Emissor (Nome Simplificado)",
+  "Agente de Pagamento (Nome Simplificado)"];
+
   constructor(private eventosService: EventosListService,private route : ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -36,5 +57,82 @@ export class EventosListComponent implements OnInit {
   sort(a): void {
     this.order = this.order == 'asc' ? 'desc' : 'asc';
     this.eventos = _.orderBy(this.eventos, a, [this.order]);
+  }
+
+  gerarPdf(): void {    
+    const doc = new jsPDF({ orientation: 'l', format: 'a4', unit: 'mm', });
+    const rows = this.parseAll(this.eventos);
+    doc.autoTable(this.col, rows, {
+      bodyStyles: {
+        cellWidth: 'wrap',
+        cellPadding: 1,
+        fontSize: 8,
+      },
+      columnStyles: {
+        cellWidth: 'auto',
+        cellPadding: 1,
+        fontSize: 3,
+      },
+      headStyles: {
+        cellWidth: 'auto',
+        cellPadding: 1,
+        fontSize: 8,
+
+      },
+      margin: 2,
+    });
+
+    doc.save('manutencaoeventos.pdf');
+  }
+  
+  gerarCSV(): void {
+    const options = { 
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalSeparator: '.',
+      showLabels: true, 
+      filename: 'manutencaoeventos',
+      //showTitle: true,
+      //title: 'My Awesome CSV',
+      useTextFile: false,
+      useBom: true,
+      //useKeysAsHeaders: true,
+      headers: null, //<-- Won't work with useKeysAsHeaders present!-->
+    };
+   options.headers = this.col;
+  
+
+    const csvExporter = new ExportToCsv(options);
+     
+    csvExporter.generateCsv(this.parseAll(this.eventos));
+  }
+
+  parseAll(obj) {
+    let parentArray = [];
+    const keys = Object.keys( this.eventos);
+    console.log('tamenho'+ keys.length);
+    keys.forEach((key) => {
+      const linha = JSON.stringify(this.eventos[key]);
+      const linhakeys = Object.keys(JSON.parse(linha));
+      const childrenArray = [];
+      linhakeys.forEach((keyAux) => {
+        console.log('keyAux => ' + keyAux);
+        console.log('valor' + JSON.stringify(JSON.parse(linha)[keyAux]));
+        if(JSON.parse(linha)[keyAux].hasOwnProperty('singleDate')){
+          console.log('tem propriedade? ' + true);
+          childrenArray.push(this.formatDateToString(JSON.parse(linha)[keyAux]));
+        }else if(JSON.parse(linha)[keyAux].hasOwnProperty('id') && JSON.parse(linha)[keyAux].hasOwnProperty('descricao') ){
+          console.log('tem propriedade? ' + true);
+          childrenArray.push(JSON.parse(linha)[keyAux].descricao);
+        }else{
+          let strValor = JSON.stringify(JSON.parse(linha)[keyAux]);
+          childrenArray.push(eval(strValor));
+        }
+        
+      });
+      parentArray.push(childrenArray);
+    });
+    console.log(parentArray);
+    return parentArray;
   }
 }
