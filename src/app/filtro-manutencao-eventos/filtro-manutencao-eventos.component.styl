@@ -1,10 +1,6 @@
-html,body{
-   height:100% !important;
-}
-
 .container{
     width:100%; 
-    border: 1px solid red; 
+    border: 1px solid white;
     align-items: center; 
     display: flex;
     flex-direction: row;
@@ -16,47 +12,71 @@ html,body{
 .table{
   display: table; 
   padding: 1px;
-  margin: 1px;
-  border: solid 2px RoyalBlue;
-  border-radius: 5px;
-  width: 50%;
-  
+  margin: 2px;
+  // border-radius: 5px;
+  width: 100%;
 }
 .row{
   display: table-row; 
   vertical-align: top;
   padding-bottom: 1px;
   border-left: 0px;
-  border-radius: 5px;
-}
-
-.row-header {
-    background: RoyalBlue none repeat scroll 0 0;
-    color: white;
-    height: 40px;
+  margin-right: 0px;
 }
 
 .cell {
   display: table-cell;
   vertical-align: top;
   padding-left: 10px;
-  width: auto;
-  text-align: left ;
-  margin: 0;
+  width: 50%;
+  text-align: right  ;
+  margin: 0px;
   border: solid 1px white;
   border-radius: 5px;
   vertical-align: middle;
   padding: 5px;
-  //background-color: white;
 }
-.td {
-  width: 100px;
-  font-style:bold;
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
+
+.table-header{
+  display: table-caption;
+  background-color: RoyalBlue;
+  border-radius: 5px;
+  color: white;
+  font-weight:  bold;
+  font-size: 20px;
+  padding: 10px;  
+}
+
+.label-inputs {
+  font-weight:  bold;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+input{
+  border-radius: 5px;
+}
+
+.contorno{
+    width: 30%; 
+    border: 2px solid RoyalBlue;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding:0;
+    border-radius: 5px;
 }
 
 .cell input {
-    width: 95%;
+    width: 100%;
     vertical-align: left;
+    margin-right: 10px;
+}
+
+.pesquisar{
+  width: 100%; 
+  border: 1px solid white; 
+  display:flex; 
+  justify-content: center; 
+  margin-top: 10px;
 }

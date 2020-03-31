@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { ReactiveFormsModule,FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -25,7 +25,10 @@ import { FiltroManutencaoEventosComponent } from './filtro-manutencao-eventos/fi
     FiltroManutencaoEventosComponent
   ],
   imports: [
-    BrowserModule,BrowserAnimationsModule,MatSelectModule,ReactiveFormsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatSelectModule,
+    ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,

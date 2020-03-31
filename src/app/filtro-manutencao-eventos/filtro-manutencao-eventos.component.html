@@ -1,10 +1,37 @@
-<div class="container">
-<div class="table">
-<div class="row row-header">
-  <span class="cell td">Manutenção de eventos</span>
-</div>
-<div class="row span-resultado" *ngFor="let label of labels">
-  <span class="cell">{{label}}</span>
-</div>  
-</div>
-</div>
+<form [formGroup]="formFiltro" (ngSubmit)="onSubmit()">
+  <div class="container">
+    <div class="contorno">
+      <div class="table">
+        <div class="table-header">Manutenção de eventos</div>
+
+        <div [ngSwitch]="formElement.type" class="row label-inputs" *ngFor="let formElement of fields">
+          <span class="cell">{{formElement.label}}</span>
+          <span class="cell" *ngSwitchCase="'string'">
+            <input type="text" formControlName="{{formElement.id}}" [value]="formElement.defaultValue" />
+          </span>
+          <span class="cell" *ngSwitchCase="'select'">
+            <mat-form-field>
+              <mat-label>selecione</mat-label>
+              <mat-select formControlName="{{formElement.id}}">
+                <mat-option *ngFor="let option of formElement.options" [value]="option">
+                  {{option.descricao}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </span>
+          <span class="cell" *ngSwitchCase="'IMyDateModel'">
+            <div class="datepickercontainer">
+              <div class="datepickerelement">
+                <input class="input-box" placeholder="selecione duas datas*" angular-mydatepicker name="mydate"
+                  (click)="dp.toggleCalendar()" formControlName="{{formElement.id}}" [options]="myDpOptions"
+                  #dp="angular-mydatepicker" [locale]='locale' />
+              </div>
+            </div>
+          </span>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="pesquisar"><input type="submit" value="Pesquisar"></div>
+</form>
