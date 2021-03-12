@@ -27,7 +27,7 @@
     "angular-mydatepicker": "^0.5.1",
     "core-js": "^2.5.4",
     "export-to-csv": "^0.2.1",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "jspdf-autotable": "^3.2.13",
     "lodash": "^4.17.15",
     "rxjs": "~6.3.3",
